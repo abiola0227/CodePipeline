@@ -17,7 +17,7 @@ Resources:
         Webhook: true
       Artifacts:
         Type: S3
-        Location: aws-cicd-python-helloworld
+        Location: codepipeline-ab-demo
         Path: codebuild-artifacts
         Name: python-hello-world.zip
         Packaging: ZIP
@@ -31,7 +31,7 @@ Resources:
         ImagePullCredentialsType: CODEBUILD
       Cache:
         Type: S3
-        Location: aws-cicd-python-helloworld/codebuild-cache
+        Location: codepipeline-ab-demo/codebuild-cache
       TimeoutInMinutes: 45
       QueuedTimeoutInMinutes: 480
       LogsConfig:
