@@ -81,6 +81,10 @@ Resources:
                 TemplatePath: SourceArtifact::infra/01-codebuild/codebuild-template.yml
                 Capabilities: CAPABILITY_NAMED_IAM
                 RoleArn: !Ref CloudFormationExecutionRoleArn
+                ParameterOverrides: !Sub | 
+                  { 
+                    "RepositoryName": "${RepositoryName}" 
+                  }
               InputArtifacts:
                 - Name: SourceArtifact
               RunOrder: 1
