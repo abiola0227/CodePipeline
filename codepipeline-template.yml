@@ -10,19 +10,15 @@ Parameters:
   PipelineBucket:
     Type: String
     Description: S3 bucket used by CodePipeline as artifact store.
-
-  GitConnectionArn:
-    Type: String
-    Description: ARN of the CodeStar Connection used for GitHub access.
-
-  GitFullRepoId:
-    Type: String
-    Description: GitHub repository in the form owner/repo.
-
-  GitBranch:
-    Type: String
-    Default: "main"
-    Description: GitHub branch to use as the source.
+    
+  RepositoryName: 
+    Type: String 
+    Description: Name of the CodeCommit repository. 
+    
+  BranchName: 
+    Type: String 
+    Default: "main" 
+    Description: CodeCommit branch to use as the source.
 
   CloudFormationExecutionRoleArn:
     Type: String
@@ -60,14 +56,12 @@ Resources:
               ActionTypeId:
                 Category: Source
                 Owner: AWS
-                Provider: CodeStarSourceConnection
+                Provider: CodeCommit
                 Version: 1
               Configuration:
-                BranchName: !Ref GitBranch
-                ConnectionArn: !Ref GitConnectionArn
-                FullRepositoryId: !Ref GitFullRepoId
-                DetectChanges: "true"
-                OutputArtifactFormat: CODE_ZIP
+                RepositoryName: !Ref RepositoryName
+                BranchName: !Ref BranchName
+                PollForSourceChanges: "true"
               OutputArtifacts:
                 - Name: SourceArtifact
               RunOrder: 1
