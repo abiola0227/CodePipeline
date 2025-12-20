@@ -1,6 +1,11 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: CloudFormation template to create a CodeBuild project
 
+
+Parameters: 
+  RepositoryName: 
+    Type: String 
+    Description: Name of the CodeCommit repository
 Resources:
   PythonHelloWorldCodeBuildProject:
     Type: AWS::CodeBuild::Project
@@ -8,13 +13,8 @@ Resources:
       Name: python-hello-world-demo
       ServiceRole: arn:aws:iam::284818286831:role/codedeploy-role
       Source:
-        Type: GITHUB
-        Location: https://github.com/abiola0227/CodePipeline.git
-        GitCloneDepth: 1
-        InsecureSsl: false
-        ReportBuildStatus: false
-      Triggers:
-        Webhook: true
+        Type: CODECOMMIT 
+        Location: !Ref RepositoryName
       Artifacts:
         Type: S3
         Location: codepipeline-ab-demo
